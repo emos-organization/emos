@@ -1,58 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.emos.wx.db.dao.TbUserDao">
-  <resultMap id="BaseResultMap" type="com.example.emos.wx.db.pojo.TbUser">
-    <id column="user_id" jdbcType="INTEGER" property="userId" />
-    <result column="open_id" jdbcType="VARCHAR" property="openId" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    user_id, open_id
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from tb_empower
-    where user_id = #{userId,jdbcType=INTEGER}
+  <select id="haveRootUser" resultType="boolean">
+    SELECT IF(COUNT(*),TRUE,FALSE) FROM tb_user WHERE root=1;
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from tb_empower
-    where user_id = #{userId,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.example.emos.wx.db.pojo.TbUser">
-    insert into tb_empower (user_id, open_id)
-    values (#{userId,jdbcType=INTEGER}, #{openId,jdbcType=VARCHAR})
+
+  <insert id="insert" parameterType="HashMap">
+    INSERT INTO tb_user
+    SET
+    <if test="nickname!=null">
+      nickname = #{nickname},
+    </if>
+    <if test="photo!=null">
+      photo = #{photo},
+    </if>
+    <if test="name!=null">
+      name = #{name},
+    </if>
+    <if test="sex!=null">
+      sex = #{sex},
+    </if>
+    <if test="tel!=null">
+      tel = #{tel},
+    </if>
+    <if test="email!=null">
+      email=#{email},
+    </if>
+    <if test="hiredate!=null">
+      hiredate = #{hiredate},
+    </if>
+    role = #{role},
+    root = #{root},
+    <if test="deptName!=null">
+      dept_id = ( SELECT id FROM tb_dept WHERE dept_name = #{deptName} ),
+    </if>
+    status = #{status},
+    create_time = #{createTime}
   </insert>
-  <insert id="insertSelective" parameterType="com.example.emos.wx.db.pojo.TbUser">
-    insert into tb_empower
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="userId != null">
-        user_id,
-      </if>
-      <if test="openId != null">
-        open_id,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="userId != null">
-        #{userId,jdbcType=INTEGER},
-      </if>
-      <if test="openId != null">
-        #{openId,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.example.emos.wx.db.pojo.TbUser">
-    update tb_empower
-    <set>
-      <if test="openId != null">
-        open_id = #{openId,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where user_id = #{userId,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.example.emos.wx.db.pojo.TbUser">
-    update tb_empower
-    set open_id = #{openId,jdbcType=VARCHAR}
-    where user_id = #{userId,jdbcType=INTEGER}
-  </update>
 </mapper>
