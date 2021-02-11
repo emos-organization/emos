@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.emos.wx.db.dao.TbUserDao">
-  <resultMap id="BaseResultMap" type="com.example.emos.wx.db.pojo.TbUser">
+<mapper namespace="com.example.emos.wx.db.dao.TbTeacherDao">
+  <resultMap id="BaseResultMap" type="com.example.emos.wx.db.pojo.TbTeacher">
     <id column="user_id" jdbcType="INTEGER" property="userId" />
     <result column="open_id" jdbcType="VARCHAR" property="openId" />
   </resultMap>
@@ -18,11 +18,11 @@
     delete from tb_empower
     where user_id = #{userId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.example.emos.wx.db.pojo.TbUser">
+  <insert id="insert" parameterType="com.example.emos.wx.db.pojo.TbTeacher">
     insert into tb_empower (user_id, open_id)
     values (#{userId,jdbcType=INTEGER}, #{openId,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.example.emos.wx.db.pojo.TbUser">
+  <insert id="insertSelective" parameterType="com.example.emos.wx.db.pojo.TbTeacher">
     insert into tb_empower
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="userId != null">
@@ -41,7 +41,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.example.emos.wx.db.pojo.TbUser">
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.emos.wx.db.pojo.TbTeacher">
     update tb_empower
     <set>
       <if test="openId != null">
@@ -50,7 +50,7 @@
     </set>
     where user_id = #{userId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.example.emos.wx.db.pojo.TbUser">
+  <update id="updateByPrimaryKey" parameterType="com.example.emos.wx.db.pojo.TbTeacher">
     update tb_empower
     set open_id = #{openId,jdbcType=VARCHAR}
     where user_id = #{userId,jdbcType=INTEGER}
