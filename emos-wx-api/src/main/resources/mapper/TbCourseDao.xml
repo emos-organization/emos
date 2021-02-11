@@ -2,62 +2,57 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.emos.wx.db.dao.TbCourseDao">
   <resultMap id="BaseResultMap" type="com.example.emos.wx.db.pojo.TbCourse">
-    <id column="course_id" jdbcType="INTEGER" property="courseId" />
-    <result column="course_name" jdbcType="VARCHAR" property="courseName" />
-    <result column="fixed_jno" jdbcType="INTEGER" property="fixedJno" />
+    <id column="jno" jdbcType="INTEGER" property="jno" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
   </resultMap>
   <sql id="Base_Column_List">
-    course_id, course_name, fixed_jno
+    jno, title
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from tb_course
-    where course_id = #{courseId,jdbcType=INTEGER}
+    from tb_teacher
+    where jno = #{jno,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from tb_course
-    where course_id = #{courseId,jdbcType=INTEGER}
+    delete from tb_teacher
+    where jno = #{jno,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" keyColumn="course_id" keyProperty="courseId" parameterType="com.example.emos.wx.db.pojo.TbCourse" useGeneratedKeys="true">
-    insert into tb_course (course_name, fixed_jno)
-    values (#{courseName,jdbcType=VARCHAR}, #{fixedJno,jdbcType=INTEGER})
+  <insert id="insert" parameterType="com.example.emos.wx.db.pojo.TbCourse">
+    insert into tb_teacher (jno, title)
+    values (#{jno,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" keyColumn="course_id" keyProperty="courseId" parameterType="com.example.emos.wx.db.pojo.TbCourse" useGeneratedKeys="true">
-    insert into tb_course
+  <insert id="insertSelective" parameterType="com.example.emos.wx.db.pojo.TbCourse">
+    insert into tb_teacher
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="courseName != null">
-        course_name,
+      <if test="jno != null">
+        jno,
       </if>
-      <if test="fixedJno != null">
-        fixed_jno,
+      <if test="title != null">
+        title,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="courseName != null">
-        #{courseName,jdbcType=VARCHAR},
+      <if test="jno != null">
+        #{jno,jdbcType=INTEGER},
       </if>
-      <if test="fixedJno != null">
-        #{fixedJno,jdbcType=INTEGER},
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.example.emos.wx.db.pojo.TbCourse">
-    update tb_course
+    update tb_teacher
     <set>
-      <if test="courseName != null">
-        course_name = #{courseName,jdbcType=VARCHAR},
-      </if>
-      <if test="fixedJno != null">
-        fixed_jno = #{fixedJno,jdbcType=INTEGER},
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
       </if>
     </set>
-    where course_id = #{courseId,jdbcType=INTEGER}
+    where jno = #{jno,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.example.emos.wx.db.pojo.TbCourse">
-    update tb_course
-    set course_name = #{courseName,jdbcType=VARCHAR},
-      fixed_jno = #{fixedJno,jdbcType=INTEGER}
-    where course_id = #{courseId,jdbcType=INTEGER}
+    update tb_teacher
+    set title = #{title,jdbcType=VARCHAR}
+    where jno = #{jno,jdbcType=INTEGER}
   </update>
 </mapper>

@@ -3,6 +3,8 @@ package com.example.emos.wx.service.impl;
 import cn.hutool.http.HttpUtil;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
+import com.example.emos.wx.db.dao.TbEmpowerDao;
+import com.example.emos.wx.db.dao.TbUserDao;
 import com.example.emos.wx.exception.EmosException;
 import com.example.emos.wx.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -28,6 +30,9 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private TbUserDao userDao;
 
+    @Autowired
+    private TbEmpowerDao empowerDao;
+
     private String getOpenId(String code){
         String url="https://api.weixin.qq.com/sns/jscode2session";
         HashMap map=new HashMap();
@@ -50,16 +55,19 @@ public class UserServiceImpl implements UserService {
             boolean bool=userDao.haveRootUser();
             if(!bool){
                 String openId=getOpenId(code);
-                HashMap param=new HashMap();
-                param.put("openId", openId);
-                param.put("nickname", nickname);
-                param.put("photo", photo);
-                param.put("role", "[0]");
-                param.put("status", 1);
-                param.put("createTime", new Date());
-                param.put("root", true);
-                userDao.insert(param);
-                int id=userDao.searchIdByOpenId(openId);
+                HashMap param1=new HashMap();
+                HashMap param2=new HashMap();
+                param1.put("openId", openId);
+                param2.put("nickname", nickname);
+                param2.put("photo", photo);
+                param2.put("role", "[0]");
+                param2.put("status", 1);
+                param2.put("createTime", new Date());
+                param2.put("root", true);
+                empowerDao.insert(param1);
+                int id = empowerDao.searchIdByOpenId(openId);
+                param2.put("id", id);
+                userDao.insert(param2);
                 return id;
             }
             else{
@@ -81,7 +89,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public Integer login(String code) {
         String openId=getOpenId(code);
-        Integer id=userDao.searchIdByOpenId(openId);
+        Integer id=empowerDao.searchIdByOpenId(openId);
         if(id==null){
             throw new EmosException("帐户不存在");
         }

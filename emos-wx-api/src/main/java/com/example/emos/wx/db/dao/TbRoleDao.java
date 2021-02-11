@@ -3,13 +3,13 @@ package com.example.emos.wx.db.dao;
 import com.example.emos.wx.db.pojo.TbRole;
 
 public interface TbRoleDao {
-    int deleteByPrimaryKey(Integer userId);
+    int deleteByPrimaryKey(Integer jno);
 
     int insert(TbRole record);
 
     int insertSelective(TbRole record);
 
-    TbRole selectByPrimaryKey(Integer userId);
+    TbRole selectByPrimaryKey(Integer jno);
 
     int updateByPrimaryKeySelective(TbRole record);
 

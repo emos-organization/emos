@@ -2,57 +2,57 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.emos.wx.db.dao.TbSelectDao">
   <resultMap id="BaseResultMap" type="com.example.emos.wx.db.pojo.TbSelect">
-    <id column="user_id" jdbcType="INTEGER" property="userId" />
-    <result column="open_id" jdbcType="VARCHAR" property="openId" />
+    <id column="jno" jdbcType="INTEGER" property="jno" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
   </resultMap>
   <sql id="Base_Column_List">
-    user_id, open_id
+    jno, title
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from tb_empower
-    where user_id = #{userId,jdbcType=INTEGER}
+    from tb_teacher
+    where jno = #{jno,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from tb_empower
-    where user_id = #{userId,jdbcType=INTEGER}
+    delete from tb_teacher
+    where jno = #{jno,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.example.emos.wx.db.pojo.TbSelect">
-    insert into tb_empower (user_id, open_id)
-    values (#{userId,jdbcType=INTEGER}, #{openId,jdbcType=VARCHAR})
+    insert into tb_teacher (jno, title)
+    values (#{jno,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.example.emos.wx.db.pojo.TbSelect">
-    insert into tb_empower
+    insert into tb_teacher
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="userId != null">
-        user_id,
+      <if test="jno != null">
+        jno,
       </if>
-      <if test="openId != null">
-        open_id,
+      <if test="title != null">
+        title,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="userId != null">
-        #{userId,jdbcType=INTEGER},
+      <if test="jno != null">
+        #{jno,jdbcType=INTEGER},
       </if>
-      <if test="openId != null">
-        #{openId,jdbcType=VARCHAR},
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.example.emos.wx.db.pojo.TbSelect">
-    update tb_empower
+    update tb_teacher
     <set>
-      <if test="openId != null">
-        open_id = #{openId,jdbcType=VARCHAR},
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
       </if>
     </set>
-    where user_id = #{userId,jdbcType=INTEGER}
+    where jno = #{jno,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.example.emos.wx.db.pojo.TbSelect">
-    update tb_empower
-    set open_id = #{openId,jdbcType=VARCHAR}
-    where user_id = #{userId,jdbcType=INTEGER}
+    update tb_teacher
+    set title = #{title,jdbcType=VARCHAR}
+    where jno = #{jno,jdbcType=INTEGER}
   </update>
 </mapper>

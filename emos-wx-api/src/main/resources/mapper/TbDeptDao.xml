@@ -2,51 +2,57 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.emos.wx.db.dao.TbDeptDao">
   <resultMap id="BaseResultMap" type="com.example.emos.wx.db.pojo.TbDept">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="dept_name" jdbcType="VARCHAR" property="deptName" />
+    <id column="jno" jdbcType="INTEGER" property="jno" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, dept_name
+    jno, title
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from tb_dept
-    where id = #{id,jdbcType=INTEGER}
+    from tb_teacher
+    where jno = #{jno,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from tb_dept
-    where id = #{id,jdbcType=INTEGER}
+    delete from tb_teacher
+    where jno = #{jno,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.example.emos.wx.db.pojo.TbDept" useGeneratedKeys="true">
-    insert into tb_dept (dept_name)
-    values (#{deptName,jdbcType=VARCHAR})
+  <insert id="insert" parameterType="com.example.emos.wx.db.pojo.TbDept">
+    insert into tb_teacher (jno, title)
+    values (#{jno,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.example.emos.wx.db.pojo.TbDept" useGeneratedKeys="true">
-    insert into tb_dept
+  <insert id="insertSelective" parameterType="com.example.emos.wx.db.pojo.TbDept">
+    insert into tb_teacher
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="deptName != null">
-        dept_name,
+      <if test="jno != null">
+        jno,
+      </if>
+      <if test="title != null">
+        title,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="deptName != null">
-        #{deptName,jdbcType=VARCHAR},
+      <if test="jno != null">
+        #{jno,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.example.emos.wx.db.pojo.TbDept">
-    update tb_dept
+    update tb_teacher
     <set>
-      <if test="deptName != null">
-        dept_name = #{deptName,jdbcType=VARCHAR},
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
       </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
+    where jno = #{jno,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.example.emos.wx.db.pojo.TbDept">
-    update tb_dept
-    set dept_name = #{deptName,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=INTEGER}
+    update tb_teacher
+    set title = #{title,jdbcType=VARCHAR}
+    where jno = #{jno,jdbcType=INTEGER}
   </update>
 </mapper>

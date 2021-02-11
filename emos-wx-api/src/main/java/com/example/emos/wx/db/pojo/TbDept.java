@@ -4,14 +4,14 @@ import java.io.Serializable;
 import lombok.Data;
 
 /**
- * tb_dept
+ * tb_teacher
  * @author 
  */
 @Data
 public class TbDept implements Serializable {
-    private Integer id;
+    private Integer jno;
 
-    private String deptName;
+    private String title;
 
     private static final long serialVersionUID = 1L;
 }

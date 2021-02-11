@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `emos` /*!40100 DEFAULT CHARACTER SET utf8 */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `emos`;
 -- MySQL dump 10.13  Distrib 8.0.17, for Win64 (x86_64)
 --
 -- Host: localhost    Database: emos
@@ -502,7 +500,7 @@ DROP TABLE IF EXISTS `tb_empower`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tb_empower` (
-  `user_id` int(10) unsigned NOT NULL,
+  `user_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `open_id` varchar(200) DEFAULT NULL,
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `user_id_UNIQUE` (`user_id`),
@@ -554,9 +552,10 @@ DROP TABLE IF EXISTS `tb_jno`;
 CREATE TABLE `tb_jno` (
   `jno_id` int(10) unsigned NOT NULL,
   `jno` int(20) unsigned NOT NULL,
-  PRIMARY KEY (`jno_id`,`jno`),
+  PRIMARY KEY (`jno_id`),
   UNIQUE KEY `jno_UNIQUE` (`jno`),
-  CONSTRAINT `jnoidlink` FOREIGN KEY (`jno_id`) REFERENCES `tb_user` (`id`)
+  KEY `jnoidlink_idx` (`jno_id`),
+  CONSTRAINT `jnoidlink` FOREIGN KEY (`jno_id`) REFERENCES `tb_empower` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -777,9 +776,9 @@ DROP TABLE IF EXISTS `tb_sno`;
 CREATE TABLE `tb_sno` (
   `sno_id` int(10) unsigned NOT NULL,
   `sno` int(20) unsigned NOT NULL,
-  PRIMARY KEY (`sno_id`,`sno`),
+  PRIMARY KEY (`sno_id`),
   UNIQUE KEY `sno_UNIQUE` (`sno`),
-  CONSTRAINT `studentidlink` FOREIGN KEY (`sno_id`) REFERENCES `tb_user` (`id`)
+  CONSTRAINT `stuidlink` FOREIGN KEY (`sno_id`) REFERENCES `tb_empower` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -850,7 +849,7 @@ DROP TABLE IF EXISTS `tb_user`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `tb_user` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `id` int(10) unsigned NOT NULL COMMENT '主键',
   `nickname` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '昵称',
   `photo` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '头像网址',
   `name` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT '姓名',
@@ -867,8 +866,9 @@ CREATE TABLE `tb_user` (
   KEY `unq_email` (`email`) USING BTREE,
   KEY `idx_dept_id` (`dept_id`) USING BTREE,
   KEY `idx_status` (`status`) USING BTREE,
-  CONSTRAINT `deptidlink` FOREIGN KEY (`dept_id`) REFERENCES `tb_dept` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='用户表';
+  CONSTRAINT `deptidlink` FOREIGN KEY (`dept_id`) REFERENCES `tb_dept` (`id`),
+  CONSTRAINT `useridlink` FOREIGN KEY (`id`) REFERENCES `tb_empower` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='用户表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -897,4 +897,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-02-11 12:23:06
+-- Dump completed on 2021-02-12  0:05:40
