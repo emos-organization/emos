@@ -28,7 +28,7 @@
 		},
 		onLoad:function(){
 			qqmapsdk=new QQMapWX({
-				key:"KSFBZ-2MX6J-2PRFM-KVWBE-37KUE-W3FLZ"
+				key:"IBHBZ-ZIJCU-6V6V5-B7GNN-C5EI3-KPBHW"
 			})
 		},
 		onShow:function(){

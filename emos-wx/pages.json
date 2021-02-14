@@ -5,7 +5,7 @@
 		{
 			"path": "pages/login/login",
 			"style": {
-				"navigationBarTitleText": "欢迎使用EMOS系统",
+				"navigationBarTitleText": "欢迎使用刷脸签到系统",
 				"enablePullDownRefresh": false
 			}
 		},
@@ -84,10 +84,28 @@
             }
             
         }
+        ,{
+            "path" : "pages/student/student",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/teacher/teacher",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "white",
-		"navigationBarTitleText": "EMOS系统",
+		"navigationBarTitleText": "刷脸签到系统",
 		"navigationBarBackgroundColor": "#3474FF",
 		"backgroundColor": "#EEEEF4"
 	},
